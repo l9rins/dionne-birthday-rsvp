@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dionne Margaret is Turning One 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #F9D8D6;
+    --peach: #F7C5B0;
+    --rose: #E8A0A0;
+    --dusty-rose: #C97B7B;
+    --gold: #D4A96A;
+    --gold-light: #F2E2C4;
+    --cloud: #FDF6F0;
+    --sky: #EEF4FB;
+    --lavender: #EDE8F7;
+    --sage: #D8EAE0;
+    --text-dark: #3A2A2A;
+    --text-mid: #7A5C5C;
+    --text-light: #B89090;
+    --white: #FFFDF9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(160deg, #FDF0EC 0%, #F3E8F5 40%, #EAF0FA 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ---- SPLASH SCREEN ---- */
+  #splash {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #FBE8E8 0%, #F3E0F5 50%, #E8EEF8 100%);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #splash.hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+  .envelope-wrap {
+    position: relative; cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  .envelope {
+    width: 220px; height: 155px; position: relative;
+  }
+  .env-body {
+    width: 220px; height: 155px; background: #EBB0B0;
+    border-radius: 8px 8px 14px 14px;
+    position: absolute; bottom: 0;
+    box-shadow: 0 12px 40px rgba(200,120,120,0.25);
+  }
+  .env-flap {
+    width: 0; height: 0;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-top: 90px solid #D89090;
+    position: absolute; top: 0; left: 0;
+    transform-origin: top center;
+    transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    border-radius: 3px 3px 0 0;
+  }
+  .env-flap-inner {
+    width: 0; height: 0;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-bottom: 90px solid #F5CECE;
+    position: absolute; top: 0; left: 0;
+  }
+  .env-seal {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #C86B6B, #E89090);
+    position: absolute; top: 42px; left: 88px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; z-index: 2;
+    box-shadow: 0 3px 12px rgba(200,100,100,0.4);
+    transition: transform 0.3s ease;
+  }
+  .envelope-wrap:hover .env-seal { transform: scale(1.1); }
+  .envelope-wrap:hover .env-flap { transform: rotateX(160deg); }
+
+  .splash-label {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-mid); font-size: 13px; letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .splash-label span { margin: 0 8px; }
+  .splash-cta {
+    margin-top: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text-mid);
+    letter-spacing: 0.08em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .splash-name {
+    font-family: 'Sacramento', cursive;
+    font-size: 44px; color: var(--dusty-rose);
+    margin-top: 10px;
+    filter: drop-shadow(0 2px 8px rgba(200,120,120,0.2));
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  #main { display: none; }
+  #main.show { display: block; animation: fadeUp 0.9s ease forwards; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 60px 24px 40px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-orb {
+    position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.5; pointer-events: none;
+  }
+  .orb1 { width: 340px; height: 340px; background: #F9D0D0; top: -80px; left: -100px; }
+  .orb2 { width: 280px; height: 280px; background: #D8D0F0; bottom: 60px; right: -60px; }
+  .orb3 { width: 200px; height: 200px; background: #C8E4F0; top: 40%; left: -40px; }
+
+  .baby-age-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
+    border: 1px solid rgba(200,150,150,0.3);
+    border-radius: 100px; padding: 8px 20px;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dusty-rose); font-weight: 500; margin-bottom: 28px;
+  }
+  .baby-age-badge::before { content: '✦'; font-size: 10px; }
+  .baby-age-badge::after { content: '✦'; font-size: 10px; }
+
+  .photo-frame {
+    width: 160px; height: 160px;
+    border-radius: 50%; margin-bottom: 28px;
+    background: linear-gradient(135deg, var(--blush), var(--lavender), var(--sky));
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.8), 0 0 0 12px rgba(240,180,180,0.2), 0 16px 48px rgba(200,120,120,0.2);
+  }
+  .photo-frame .photo-placeholder {
+    width: 148px; height: 148px; border-radius: 50%;
+    background: linear-gradient(135deg, #F5D5D0, #EAD0F0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px;
+    overflow: hidden;
+  }
+  .photo-frame img.photo-placeholder {
+    width: 148px; height: 148px; border-radius: 50%;
+    object-fit: cover; display: block; -webkit-user-drag: none;
+  }
+  .photo-frame-deco {
+    position: absolute; width: 180px; height: 180px; border-radius: 50%;
+    background: conic-gradient(from 0deg, #F9D8D680, #D8D0F080, #C8E4F080, #F9D8D680);
+    animation: spin 12s linear infinite; opacity: 0.6;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .from-line {
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 6px; font-weight: 500;
+  }
+  .hero-title-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 11vw, 64px);
+    line-height: 1.05; color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .hero-title-name em {
+    font-style: italic; color: var(--dusty-rose);
+    font-size: 1.1em;
+  }
+  .hero-subtitle {
+    font-family: 'Sacramento', cursive;
+    font-size: 30px; color: var(--dusty-rose);
+    margin-bottom: 16px; opacity: 0.9;
+  }
+  .hero-tagline {
+    font-size: 15px; color: var(--text-mid);
+    letter-spacing: 0.04em; margin-bottom: 36px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tagline::before, .hero-tagline::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,150,150,0.4), transparent);
+  }
+
+  .scroll-hint {
+    font-size: 12px; color: var(--text-light); letter-spacing: 0.1em;
+    text-transform: uppercase; animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ---- SECTIONS ---- */
+  section { padding: 60px 24px; max-width: 520px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-light); font-weight: 500; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-eyebrow::before {
+    content: ''; width: 24px; height: 1px;
+    background: var(--rose); display: block;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; margin-bottom: 28px; color: var(--text-dark);
+  }
+
+  /* ---- COUNTDOWN ---- */
+  .countdown-section { text-align: center; padding-top: 40px; }
+  .countdown-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px; margin: 24px 0;
+  }
+  .countdown-cell {
+    background: rgba(255,255,255,0.75); backdrop-filter: blur(8px);
+    border: 1px solid rgba(200,150,150,0.2);
+    border-radius: 16px; padding: 16px 8px 12px;
+  }
+  .countdown-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; font-weight: 700; color: var(--dusty-rose);
+    line-height: 1; display: block;
+  }
+  .countdown-label {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-light); margin-top: 6px; font-weight: 500;
+  }
+
+  /* ---- PARTY DETAILS ---- */
+  .details-card {
+    background: rgba(255,255,255,0.8); backdrop-filter: blur(16px);
+    border: 1px solid rgba(220,180,180,0.3);
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(200,120,120,0.08);
+  }
+  .details-card-header {
+    background: linear-gradient(135deg, #F7D0D0, #EDD0E8);
+    padding: 24px 28px; text-align: center;
+  }
+  .details-card-header .theme-chip {
+    display: inline-block; background: rgba(255,255,255,0.5);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; letter-spacing: 0.08em; color: var(--dusty-rose);
+    margin-bottom: 10px;
+  }
+  .details-card-header h2 {
+    font-family: 'Sacramento', cursive; font-size: 36px; color: var(--text-dark);
+  }
+  .detail-row {
+    padding: 18px 28px; border-bottom: 1px solid rgba(200,150,150,0.12);
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .detail-icon.date-ico { background: #FBEAEA; }
+  .detail-icon.loc-ico { background: #EAF0FB; }
+  .detail-icon.theme-ico { background: #F5EAF8; }
+  .detail-meta label {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-light); display: block; margin-bottom: 3px;
+  }
+  .detail-meta strong {
+    font-size: 15px; color: var(--text-dark); font-weight: 500;
+  }
+  .detail-meta p { font-size: 13px; color: var(--text-mid); margin-top: 2px; }
+  .map-link {
+    display: inline-block; margin-top: 6px; font-size: 12px;
+    color: #5B8DD9; text-decoration: none; letter-spacing: 0.04em;
+  }
+  .map-link:hover { text-decoration: underline; }
+
+  /* ---- GALLERY PREVIEW ---- */
+  .gallery-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin: 20px 0;
+  }
+  .gallery-strip .thumb {
+    aspect-ratio: 1; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(135deg, #F9D8D6, #EDD0F0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; position: relative; cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .gallery-strip .thumb:hover { transform: scale(1.03); }
+  .gallery-strip .thumb span.label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.85); font-size: 9px;
+    text-align: center; padding: 5px; letter-spacing: 0.06em;
+    color: var(--text-mid); text-transform: uppercase;
+  }
+  .gallery-strip .thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* ---- RSVP FORM ---- */
+  .rsvp-section { padding-top: 20px; }
+  .rsvp-card {
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+    border: 1px solid rgba(220,180,180,0.3); border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: 0 16px 64px rgba(200,120,120,0.1);
+  }
+  .rsvp-deadline {
+    display: flex; align-items: center; gap: 8px; justify-content: center;
+    background: var(--gold-light); border-radius: 100px;
+    padding: 8px 20px; margin-bottom: 28px;
+    font-size: 12px; color: #8B6020; letter-spacing: 0.06em;
+  }
+  .rsvp-deadline::before { content: '⏰'; font-size: 14px; }
+
+  /* RSVP Toggle */
+  .rsvp-toggle {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px;
+  }
+  .toggle-btn {
+    border: 1.5px solid rgba(200,150,150,0.3);
+    border-radius: 16px; padding: 16px 12px; cursor: pointer;
+    text-align: center; transition: all 0.25s ease;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-mid);
+  }
+  .toggle-btn .toggle-emoji { font-size: 26px; display: block; margin-bottom: 6px; }
+  .toggle-btn .toggle-text { font-size: 13px; display: block; }
+  .toggle-btn .toggle-sub { font-size: 11px; color: var(--text-light); margin-top: 2px; display: block; }
+  .toggle-btn.yes.active {
+    background: linear-gradient(135deg, #FBEAEA, #F5E0F8);
+    border-color: var(--rose); color: var(--dusty-rose);
+    box-shadow: 0 4px 20px rgba(200,120,120,0.2);
+    transform: translateY(-2px);
+  }
+  .toggle-btn.no.active {
+    background: linear-gradient(135deg, #EAF0FB, #EAF5EA);
+    border-color: #9AB8D8; color: #4A6E8C;
+    box-shadow: 0 4px 20px rgba(100,140,180,0.15);
+    transform: translateY(-2px);
+  }
+
+  /* FORM FIELDS */
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-light);
+    font-weight: 500; margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%; border: 1px solid rgba(200,150,150,0.25);
+    border-radius: 14px; padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-dark); background: rgba(255,255,255,0.7);
+    transition: all 0.2s ease; outline: none; resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: rgba(200,120,120,0.5);
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 0 0 4px rgba(200,120,120,0.08);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text-light); }
+
+  /* Guest counter */
+  .guest-counter {
+    display: flex; align-items: center; gap: 0;
+    border: 1px solid rgba(200,150,150,0.25); border-radius: 14px;
+    overflow: hidden; background: rgba(255,255,255,0.7);
+  }
+  .counter-btn {
+    width: 52px; height: 52px; border: none; cursor: pointer;
+    background: transparent; font-size: 20px; color: var(--dusty-rose);
+    transition: background 0.2s; flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .counter-btn:hover { background: rgba(200,120,120,0.08); }
+  .counter-btn:active { background: rgba(200,120,120,0.15); }
+  .counter-val {
+    flex: 1; text-align: center; font-size: 18px;
+    font-weight: 500; color: var(--text-dark);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Submit button */
+  .submit-btn {
+    width: 100%; padding: 18px 24px; border: none; cursor: pointer;
+    border-radius: 100px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.06em;
+    background: linear-gradient(135deg, #D87878, #C060A0, #7878C8);
+    color: white; position: relative; overflow: hidden;
+    transition: all 0.3s ease; margin-top: 8px;
+  }
+  .submit-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #E88888, #D070B0, #8888D8);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .submit-btn:hover::before { opacity: 1; }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,100,160,0.35); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn span { position: relative; z-index: 1; }
+
+  /* ---- SUCCESS STATE ---- */
+  .success-state {
+    display: none; text-align: center; padding: 20px 0;
+  }
+  .success-state.show { display: block; animation: fadeUp 0.6s ease; }
+  .success-icon { font-size: 64px; margin-bottom: 16px; }
+  .success-state h3 {
+    font-family: 'Sacramento', cursive; font-size: 38px;
+    color: var(--dusty-rose); margin-bottom: 10px;
+  }
+  .success-state p { color: var(--text-mid); font-size: 14px; line-height: 1.7; }
+
+  /* ---- CONTACT ---- */
+  .contact-card {
+    background: linear-gradient(135deg, rgba(249,216,214,0.5), rgba(237,208,240,0.5));
+    border: 1px solid rgba(220,180,180,0.3); border-radius: 20px;
+    padding: 24px 28px; display: flex; align-items: center; gap: 16px;
+    cursor: pointer; transition: transform 0.2s ease;
+    text-decoration: none; color: inherit;
+  }
+  .contact-card:hover { transform: translateY(-2px); }
+  .contact-avatar {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(135deg, #E88888, #C060A0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .contact-text label {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-light); display: block; margin-bottom: 3px;
+  }
+  .contact-text strong { font-size: 14px; color: var(--text-dark); }
+  .contact-text span { font-size: 13px; color: var(--text-mid); display: block; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    text-align: center; padding: 40px 24px 60px;
+    border-top: 1px solid rgba(200,150,150,0.15);
+  }
+  .footer-confetti { font-size: 20px; letter-spacing: 8px; margin-bottom: 16px; }
+  .footer-sign {
+    font-family: 'Sacramento', cursive; font-size: 32px;
+    color: var(--dusty-rose); margin-bottom: 8px;
+  }
+  .footer-baby {
+    font-size: 13px; color: var(--text-light);
+    font-style: italic; letter-spacing: 0.04em;
+  }
+
+  /* ---- FLOATING DECO ---- */
+  .deco-float {
+    position: fixed; pointer-events: none; z-index: 0;
+    font-size: 24px; animation: drift 20s ease-in-out infinite;
+    opacity: 0.25;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    25% { transform: translate(10px,-15px) rotate(15deg); }
+    50% { transform: translate(-8px,-25px) rotate(-10deg); }
+    75% { transform: translate(12px,-10px) rotate(8deg); }
+  }
+
+  /* ---- SECTION DIVIDER ---- */
+  .divider {
+    text-align: center; padding: 10px 0 30px;
+    font-size: 18px; letter-spacing: 12px; opacity: 0.3;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(200,150,150,0.3); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING DECO -->
+<div class="deco-float" style="top:15%;left:5%;animation-delay:-3s">🌸</div>
+<div class="deco-float" style="top:35%;right:4%;animation-delay:-8s;font-size:18px">⭐</div>
+<div class="deco-float" style="top:60%;left:3%;animation-delay:-12s;font-size:16px">🌼</div>
+<div class="deco-float" style="top:80%;right:6%;animation-delay:-5s;font-size:20px">✨</div>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <p class="splash-label"><span>✦</span> A Special Invitation <span>✦</span></p>
+  <div class="envelope-wrap" onclick="openInvitation()">
+    <div class="envelope">
+      <div class="env-body"></div>
+      <div class="env-flap-inner"></div>
+      <div class="env-flap"></div>
+      <div class="env-seal">💌</div>
+    </div>
+  </div>
+  <p class="splash-name">Dionne Margaret</p>
+  <p class="splash-cta">↑ Tap to open your invitation</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-orb orb1"></div>
+    <div class="hero-bg-orb orb2"></div>
+    <div class="hero-bg-orb orb3"></div>
+
+    <div class="baby-age-badge">Turning One</div>
+
+    <div class="photo-frame">
+      <div class="photo-frame-deco"></div>
+      <img class="photo-placeholder" src="dionne-pics/Dionne%20my%20wallpaper.PNG" alt="Dionne">
+    </div>
+
+    <p class="from-line">From Mama &amp; Dada, with all their love</p>
+    <h1 class="hero-title-name">DIONNE <em>Margaret</em></h1>
+    <p class="hero-subtitle">is turning One!</p>
+    <p class="hero-tagline">Fun under the Sun · Baby's First Birthday</p>
+
+    <p class="scroll-hint">↓ &nbsp; scroll to celebrate</p>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <p class="section-eyebrow" style="justify-content:center;margin-bottom:6px">The big day</p>
+    <h2 class="section-heading" style="text-align:center;font-size:22px;margin-bottom:4px">Counting Down!</h2>
+    <p style="text-align:center;font-size:13px;color:var(--text-light);margin-bottom:0">Until the big day arrives…</p>
+    <div class="countdown-grid" id="countdown"></div>
+  </section>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <!-- PARTY DETAILS -->
+  <section>
+    <p class="section-eyebrow">Mark Your Calendars</p>
+    <h2 class="section-heading">Party Details</h2>
+    <div class="details-card">
+      <div class="details-card-header">
+        <div class="theme-chip">🌞 Fun under the Sun</div>
+        <h2>Baby's First Birthday</h2>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon date-ico">📅</div>
+        <div class="detail-meta">
+          <label>Date &amp; Time</label>
+          <strong>Sunday, July 5, 2026</strong>
+          <p>3:00 PM – 10:30 PM</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon loc-ico">📍</div>
+        <div class="detail-meta">
+          <label>Venue</label>
+          <strong>Eli's Villa</strong>
+          <p>BV37+8H5, Cebu 5 Hills Rd, Tisa, Cebu City</p>
+          <a href="https://maps.google.com" class="map-link">Open in Google Maps →</a>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon theme-ico">🎀</div>
+        <div class="detail-meta">
+          <label>Theme</label>
+          <strong>Fun under the Sun</strong>
+          <p>Come dressed in your sunny best! 🌈</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dusty-rose);text-decoration:none;padding:10px 20px;border:1px solid rgba(200,150,150,0.3);border-radius:100px;transition:background 0.2s" onmouseover="this.style.background='rgba(200,150,150,0.08)'" onmouseout="this.style.background='transparent'">
+        🗓 Add to Google Calendar
+      </a>
+    </div>
+  </section>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <!-- GALLERY PREVIEW -->
+  <section>
+    <p class="section-eyebrow">Sweet Memories So Far</p>
+    <h2 class="section-heading">Moments with Dionne</h2>
+    <div class="gallery-strip">
+      <div class="thumb">
+        <img src="dionne-pics/Dionne%20with%20flowers.JPG" alt="With Flowers">
+        <span class="label">With Flowers</span>
+      </div>
+      <div class="thumb">
+        <img src="dionne-pics/Dionne%20pretty.PNG" alt="Pretty">
+        <span class="label">Pink Dress</span>
+      </div>
+      <div class="thumb">
+        <img src="dionne-pics/Dionne%20in%20Sto.%20Nino.jpg" alt="Sto. Nino">
+        <span class="label">Sto. Niño</span>
+      </div>
+      <div class="thumb">
+        <img src="dionne-pics/Dionne%20in%20cafe.PNG" alt="Cafe">
+        <span class="label">Cafe</span>
+      </div>
+      <div class="thumb">
+        <img src="./dionne-pics/Dionne in Bo_s.PNG" alt="Bo_s 3">
+        <span class="label">Bo's</span>
+      </div>
+      <div class="thumb">
+        <img src="dionne-pics/Dionne%20and%20the%20ribbons.JPG" alt="Ribbons">
+        <span class="label">Ribbons</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <!-- RSVP -->
+  <section class="rsvp-section">
+    <p class="section-eyebrow">Can You Come &amp; Play?</p>
+    <h2 class="section-heading">We'd love to have you!</h2>
+
+    <div class="rsvp-card">
+      <div class="rsvp-deadline">RSVP by June 20, 2026</div>
+
+      <!-- RSVP FORM -->
+      <div id="rsvpForm">
+        <!-- YES / NO -->
+        <div class="rsvp-toggle">
+          <button class="toggle-btn yes" onclick="selectRSVP('yes', this)">
+            <span class="toggle-emoji">🎉</span>
+            <span class="toggle-text">Yes, I'll be there!</span>
+            <span class="toggle-sub">Can't wait!</span>
+          </button>
+          <button class="toggle-btn no" onclick="selectRSVP('no', this)">
+            <span class="toggle-emoji">😢</span>
+            <span class="toggle-text">Sorry, can't make it</span>
+            <span class="toggle-sub">Maybe next time</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="guestName" placeholder="e.g. Tita Maria 🌸" />
+        </div>
+
+        <div class="form-group" id="guestCountGroup">
+          <label>Number of Guests</label>
+          <div class="guest-counter">
+            <button class="counter-btn" onclick="changeGuests(-1)">−</button>
+            <span class="counter-val" id="guestCount">1</span>
+            <button class="counter-btn" onclick="changeGuests(1)">+</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>A Message for Baby Dionne 💕</label>
+          <textarea id="guestMessage" rows="3" placeholder="Write something sweet…"></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="submitRSVP()">
+          <span>✉️ &nbsp; Send my RSVP</span>
+        </button>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-state" id="successState">
+        <div class="success-icon" id="successIcon">🎉</div>
+        <h3 id="successHeading">See you there!</h3>
+        <p id="successMsg">Thank you for celebrating Dionne Margaret's very first birthday! She can't wait to see you. 🌈</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <!-- CONTACT -->
+  <section>
+    <p class="section-eyebrow">Any Questions?</p>
+    <h2 class="section-heading" style="margin-bottom:16px">Get in Touch</h2>
+    <a href="https://www.facebook.com/noneofyourbusiness0909" class="contact-card" target="_blank">
+      <div class="contact-avatar">👤</div>
+      <div class="contact-text">
+        <label>Facebook Profile</label>
+        <strong>Mama &amp; Dada</strong>
+        <span>Visit our Facebook page →</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-confetti">🌸 🎀 ⭐ 🎈 ✨</div>
+    <div class="footer-sign">With all our love,</div>
+    <div class="footer-sign" style="font-size:26px;margin-top:-8px">Mama &amp; Dada</div>
+    <p class="footer-baby">in our sunshine — <em>Dionne Margaret</em> 🌟</p>
+    <p style="margin-top:24px;font-size:11px;color:var(--text-light);letter-spacing:0.08em">MADE WITH LOVE · 2026</p>
+  </footer>
+
+</div><!-- /main -->
+
+<script>
+  // SPLASH OPEN
+  function openInvitation() {
+    const splash = document.getElementById('splash');
+    const main = document.getElementById('main');
+    splash.classList.add('hide');
+    setTimeout(() => {
+      splash.style.display = 'none';
+      main.style.display = 'block';
+      setTimeout(() => main.classList.add('show'), 10);
+    }, 800);
+  }
+
+  // COUNTDOWN
+  function updateCountdown() {
+    const party = new Date('2026-07-05T15:00:00');
+    const now = new Date();
+    const diff = party - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;text-align:center;font-size:32px;padding:20px">🎉 The party has started! 🎉</div>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const labels = ['Days', 'Hours', 'Mins', 'Secs'];
+    const vals = [d, h, m, s];
+    document.getElementById('countdown').innerHTML = vals.map((v,i) =>
+      `<div class="countdown-cell">
+        <span class="countdown-num">${String(v).padStart(2,'0')}</span>
+        <div class="countdown-label">${labels[i]}</div>
+      </div>`
+    ).join('');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // GUEST COUNTER
+  let guests = 1;
+  function changeGuests(d) {
+    guests = Math.max(1, Math.min(20, guests + d));
+    document.getElementById('guestCount').textContent = guests;
+  }
+
+  // RSVP TOGGLE
+  let rsvpChoice = null;
+  function selectRSVP(choice, btn) {
+    rsvpChoice = choice;
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const gc = document.getElementById('guestCountGroup');
+    gc.style.display = choice === 'yes' ? '' : 'none';
+  }
+
+  // SUBMIT
+  function submitRSVP() {
+    const name = document.getElementById('guestName').value.trim();
+    if (!rsvpChoice) { alert('Please let us know if you can make it! 🎀'); return; }
+    if (!name) { document.getElementById('guestName').focus(); return; }
+
+    const form = document.getElementById('rsvpForm');
+    const success = document.getElementById('successState');
+
+    if (rsvpChoice === 'yes') {
+      document.getElementById('successIcon').textContent = '🎉';
+      document.getElementById('successHeading').textContent = `See you there, ${name.split(' ')[0]}!`;
+      document.getElementById('successMsg').textContent = `Thank you for celebrating Dionne Margaret's very first birthday with us! She can't wait to see you. 🌈✨`;
+    } else {
+      document.getElementById('successIcon').textContent = '💌';
+      document.getElementById('successHeading').textContent = `We'll miss you, ${name.split(' ')[0]}!`;
+      document.getElementById('successMsg').textContent = `Thank you for letting us know. Dionne sends you lots of love and wishes you could be there! 🌸`;
+    }
+
+    form.style.display = 'none';
+    success.classList.add('show');
+  }
+</script>
+</body>
+</html>
