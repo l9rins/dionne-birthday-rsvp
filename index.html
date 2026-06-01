@@ -582,7 +582,7 @@
       </div>
     </div>
     <div style="text-align:center;margin-top:16px">
-      <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dusty-rose);text-decoration:none;padding:10px 20px;border:1px solid rgba(200,150,150,0.3);border-radius:100px;transition:background 0.2s" onmouseover="this.style.background='rgba(200,150,150,0.08)'" onmouseout="this.style.background='transparent'">
+      <a id="googleCalendarLink" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dusty-rose);text-decoration:none;padding:10px 20px;border:1px solid rgba(200,150,150,0.3);border-radius:100px;transition:background 0.2s" onmouseover="this.style.background='rgba(200,150,150,0.08)'" onmouseout="this.style.background='transparent'">
         🗓 Add to Google Calendar
       </a>
     </div>
@@ -747,6 +747,28 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
+  // GOOGLE CALENDAR LINK
+  const calendarEvent = {
+    title: "Dionne Margaret's First Birthday",
+    start: '20260705T150000',
+    end: '20260705T223000',
+    timezone: 'Asia/Manila',
+    location: "Eli's Villa, BV37+8H5, Cebu 5 Hills Rd, Tisa, Cebu City",
+    details: "Join us for Dionne Margaret's first birthday celebration!\n\nTheme: Fun under the Sun\nRSVP by June 20, 2026"
+  };
+
+  const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
+  googleCalendarUrl.searchParams.set('action', 'TEMPLATE');
+  googleCalendarUrl.searchParams.set('text', calendarEvent.title);
+  googleCalendarUrl.searchParams.set('dates', `${calendarEvent.start}/${calendarEvent.end}`);
+  googleCalendarUrl.searchParams.set('ctz', calendarEvent.timezone);
+  googleCalendarUrl.searchParams.set('location', calendarEvent.location);
+  googleCalendarUrl.searchParams.set('details', calendarEvent.details);
+  document.getElementById('googleCalendarLink').href = googleCalendarUrl.toString();
+
+  const RSVP_TO_EMAIL = 'kgo.09x@gmail.com';
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbdbvbqo';
+
   // GUEST COUNTER
   let guests = 1;
   function changeGuests(d) {
@@ -765,26 +787,63 @@
   }
 
   // SUBMIT
-  function submitRSVP() {
+  async function submitRSVP() {
     const name = document.getElementById('guestName').value.trim();
+    const message = document.getElementById('guestMessage').value.trim();
     if (!rsvpChoice) { alert('Please let us know if you can make it! 🎀'); return; }
     if (!name) { document.getElementById('guestName').focus(); return; }
 
-    const form = document.getElementById('rsvpForm');
-    const success = document.getElementById('successState');
+    const submitButton = document.querySelector('.submit-btn');
+    const originalButtonText = submitButton.innerHTML;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span>Sending…</span>';
 
-    if (rsvpChoice === 'yes') {
-      document.getElementById('successIcon').textContent = '🎉';
-      document.getElementById('successHeading').textContent = `See you there, ${name.split(' ')[0]}!`;
-      document.getElementById('successMsg').textContent = `Thank you for celebrating Dionne Margaret's very first birthday with us! She can't wait to see you. 🌈✨`;
-    } else {
-      document.getElementById('successIcon').textContent = '💌';
-      document.getElementById('successHeading').textContent = `We'll miss you, ${name.split(' ')[0]}!`;
-      document.getElementById('successMsg').textContent = `Thank you for letting us know. Dionne sends you lots of love and wishes you could be there! 🌸`;
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          response: rsvpChoice === 'yes' ? 'Yes, I will be there!' : "Sorry, I can't make it.",
+          guests: rsvpChoice === 'yes' ? guests : 0,
+          message,
+          recipient: RSVP_TO_EMAIL,
+          event: "Dionne Margaret's First Birthday",
+          date: 'Sunday, July 5, 2026',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      const form = document.getElementById('rsvpForm');
+      const success = document.getElementById('successState');
+
+      if (rsvpChoice === 'yes') {
+        document.getElementById('successIcon').textContent = '🎉';
+        document.getElementById('successHeading').textContent = `You're in, ${name.split(' ')[0]}!`;
+        document.getElementById('successMsg').textContent = `Your RSVP was sent straight to ${RSVP_TO_EMAIL}. Thank you for celebrating Dionne Margaret with us! 🌈✨`;
+      } else {
+        document.getElementById('successIcon').textContent = '💌';
+        document.getElementById('successHeading').textContent = `Thanks for letting us know, ${name.split(' ')[0]}!`;
+        document.getElementById('successMsg').textContent = `Your response was sent straight to ${RSVP_TO_EMAIL}. Dionne sends lots of love! 🌸`;
+      }
+
+      form.style.display = 'none';
+      success.classList.add('show');
+    } catch (error) {
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonText;
+      alert('Sorry, we could not send the RSVP right now. Please try again in a moment.');
+      return;
     }
 
-    form.style.display = 'none';
-    success.classList.add('show');
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalButtonText;
   }
 </script>
 </body>
