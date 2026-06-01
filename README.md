@@ -16,4 +16,3 @@ If you want to share it online, upload the HTML file and the `dionne-pics/` fold
 ## Notes
 
 - The page is static and does not require a build step.
-- External fonts are loaded from Google Fonts.
