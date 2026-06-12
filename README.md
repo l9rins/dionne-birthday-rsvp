@@ -50,7 +50,7 @@ Whether you're viewing it locally or hosting it online, this project is designed
 *(Add screenshots of the RSVP page in action here)*
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x400.png?text=RSVP+Page+Screenshot+Placeholder" alt="RSVP App Interface" width="800"/>
+  <img src="dionne-pics/dionne-rsvp-page.png" alt="RSVP App Interface" width="800"/>
 </div>
 
 ---
