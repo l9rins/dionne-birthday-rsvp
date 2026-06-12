@@ -47,8 +47,6 @@ Whether you're viewing it locally or hosting it online, this project is designed
 
 ## 📸 Screenshots
 
-*(Add screenshots of the RSVP page in action here)*
-
 <div align="center">
   <img src="dionne-pics/dionne-rsvp-page.png" alt="RSVP App Interface" width="800"/>
 </div>
